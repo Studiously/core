@@ -16,7 +16,10 @@ var _ = Resource("question", func() {
 			Param("questionID", UUID, "Question ID")
 		})
 		Response(OK, QuestionMedia)
-		Response(NotFound)
+		Response(NotFound, func() {
+			Description("Question not found")
+			Status(404)
+		})
 	})
 })
 
@@ -30,7 +33,7 @@ var QuestionMedia = MediaType("application/studiously.question+json", func() {
 		Attribute("votes", Integer)
 		Attribute("answered", Boolean)
 		Attribute("data", Any)
-		Required("id", "question_type")
+		Required("id", "question_type", "unit_id")
 	})
 	View("default", func() {
 		Attribute("id")
@@ -64,5 +67,12 @@ var QuestionMedia = MediaType("application/studiously.question+json", func() {
 		Attribute("votes")
 		Attribute("answered")
 		Attribute("data")
+	})
+	View("feed", func() {
+		Attribute("id")
+		Attribute("author_id")
+		Attribute("unit_id")
+		Attribute("votes")
+		Attribute("answered")
 	})
 })

@@ -8,23 +8,34 @@ import (
 var _ = Resource("class", func() {
 	BasePath("/classes")
 	DefaultMedia(ClassMedia)
+
 	Action("list", func() {
 		Description("Get all classes a user is in")
 		Routing(GET("/"))
-		Response(OK, ArrayOf(ClassMedia))
+		Response(OK, CollectionOf("application/studiously.class+json", func() {
+			View("default")
+		}))
+		Response(NotFound, func() {
+			Description("Class does not exist or the user does not have access to it")
+			Status(404)
+		})
 	})
+
 	Action("show", func() {
 		Description("Get class by ID")
 		Routing(GET("/:class_id"))
 		Params(func() {
 			Param("class_id", UUID, "Class ID")
 		})
-		Response(OK, ClassMedia)
+		Response(OK, ClassMedia, func() {
+			Status(200)
+		})
 		Response(NotFound, func() {
-			Description("Specified class does not exist or the user does not have access to it")
+			Description("Class does not exist or the user does not have access to it")
 			Status(404)
 		})
 	})
+
 	Action("show_questions", func() {
 		Description("Get questions for a class")
 		Routing(GET("/:class_id/questions"))
@@ -35,23 +46,45 @@ var _ = Resource("class", func() {
 			Param("question_type", String, "Filter by question type")
 			Param("author_id", UUID, "Filter by author")
 			Param("unit_id", UUID, "Filter by unit")
-			Param("answered", Boolean, "Filter by whether the question has been answered by the user")
+			Param("answered", Boolean, "Filter by whether the question has been answered by the member")
 		})
-		Response(OK, ArrayOf(FeedQuestionMedia))
+		Response(OK, CollectionOf("application/studiously.question+json", func() {
+			View("feed")
+		}))
 		Response(NotFound, func() {
-			Description("Specified class does not exist or the user does not have access to it")
+			Description("Class does not exist or the user does not have access to it")
 			Status(404)
 		})
-		Response("UnknownUnit", func() {
-			Description("Specified unit does not exist in the context of the class")
+		Response(BadRequest, func() {
+			Description("A query parameter is invalid")
 			Status(400)
 		})
-		Response("UnknownAuthor", func() {
-			Description("Specified author does not exist in the context of the class")
-			Status(400)
+		//Response("UnknownUnit", func() {
+		//	Description("Unit does not exist in the context of the class")
+		//	Status(400)
+		//})
+		//Response("UnknownAuthor", func() {
+		//	Description("Author does not exist in the context of the class")
+		//	Status(400)
+		//})
+		//Response("UnknownType", func() {
+		//	Description("Question type is not recognized")
+		//	Status(400)
+		//})
+	})
+
+	Action("show_members", func() {
+		Description("Get members of a class")
+		Routing(GET("/:class_id/members"))
+		Params(func() {
+			Param("class_id", UUID, "Class ID")
 		})
-		Response("UnknownType", func() {
-			Description("Specified question type is not recognized")
+		Response(OK, CollectionOf("application/studiously.member+json", func() {
+			View("default")
+		}))
+		Response(NotFound, func() {
+			Description("Class does not exist or the user does not have access to it")
+			Status(404)
 		})
 	})
 })
@@ -59,62 +92,30 @@ var _ = Resource("class", func() {
 var ClassMedia = MediaType("application/studiously.class+json", func() {
 	Attributes(func() {
 		Attribute("id", UUID)
-		Attribute("email", String)
 		Attribute("name", String)
-		Required("email", "name")
+		Attribute("current_unit", UUID, "Current unit of study")
+
+		Required("id", "name")
 	})
 	View("default", func() {
-		Attribute("id", UUID)
-		Attribute("email")
+		Attribute("id")
 		Attribute("name")
+		Attribute("current_unit")
 	})
 })
-var FeedQuestionMedia = MediaType("application/studiously.feed_question+json", func() {
+
+var MemberMedia = MediaType("application/studiously.member+json", func() {
 	Attributes(func() {
 		Attribute("id", UUID)
-		Attribute("question_type", String, "Valid types include 'multiple_choice', 'true_false', and 'short_answer'.")
-		Attribute("author_id", UUID)
-		Attribute("unit_id", UUID)
-		Attribute("votes", Integer)
-		Attribute("answered", Boolean, "Whether the current user has answered the question.")
-
-		Required("id", "question_type", "author_id", "unit_id", "votes", "answered")
+		Attribute("name", String)
+		Attribute("role", String, func() {
+			Enum("student", "moderator", "teacher", "administrator")
+		})
+		Required("id", "name", "role")
 	})
-
 	View("default", func() {
 		Attribute("id")
-		Attribute("question_type")
-		Attribute("author_id")
-		Attribute("unit_id")
-		Attribute("votes")
-		Attribute("answered")
-	})
-	View("by_unit", func() {
-		Attribute("id")
-		Attribute("question_type")
-		Attribute("author_id")
-		Attribute("votes")
-		Attribute("answered")
-	})
-	View("by_author", func() {
-		Attribute("id")
-		Attribute("question_type")
-		Attribute("unit_id")
-		Attribute("votes")
-		Attribute("answered")
-	})
-	View("by_answered", func() {
-		Attribute("id")
-		Attribute("question_type")
-		Attribute("author_id")
-		Attribute("unit_id")
-		Attribute("votes")
-	})
-	View("by_type", func() {
-		Attribute("id")
-		Attribute("author_id")
-		Attribute("unit_id")
-		Attribute("votes")
-		Attribute("answered")
+		Attribute("name")
+		Attribute("role")
 	})
 })

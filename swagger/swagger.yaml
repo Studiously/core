@@ -7,17 +7,17 @@ definitions:
   StudiouslyClass:
     description: StudiouslyClass media type (default view)
     example:
-      current_unit: c607a5dd-6569-4cd8-8a14-a135ab920dec
-      id: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+      current_unit: f440d507-04c1-49d8-af9c-9b6246ef8139
+      id: cdf50198-fe65-4a02-99b3-99c663b10f6a
       name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
     properties:
       current_unit:
         description: Current unit of study
-        example: c607a5dd-6569-4cd8-8a14-a135ab920dec
+        example: f440d507-04c1-49d8-af9c-9b6246ef8139
         format: uuid
         type: string
       id:
-        example: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+        example: cdf50198-fe65-4a02-99b3-99c663b10f6a
         format: uuid
         type: string
       name:
@@ -32,14 +32,14 @@ definitions:
     description: StudiouslyClassCollection is the media type for an array of StudiouslyClass
       (default view)
     example:
-    - current_unit: c607a5dd-6569-4cd8-8a14-a135ab920dec
-      id: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+    - current_unit: f440d507-04c1-49d8-af9c-9b6246ef8139
+      id: cdf50198-fe65-4a02-99b3-99c663b10f6a
       name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
-    - current_unit: c607a5dd-6569-4cd8-8a14-a135ab920dec
-      id: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+    - current_unit: f440d507-04c1-49d8-af9c-9b6246ef8139
+      id: cdf50198-fe65-4a02-99b3-99c663b10f6a
       name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
-    - current_unit: c607a5dd-6569-4cd8-8a14-a135ab920dec
-      id: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+    - current_unit: f440d507-04c1-49d8-af9c-9b6246ef8139
+      id: cdf50198-fe65-4a02-99b3-99c663b10f6a
       name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
     items:
       $ref: '#/definitions/StudiouslyClass'
@@ -49,12 +49,12 @@ definitions:
   StudiouslyMember:
     description: StudiouslyMember media type (default view)
     example:
-      id: 440e9b09-0ac3-43b9-bed7-254a15de2876
+      id: 6a6e01b4-72f5-46d0-9654-df7cfdbfdc8f
       name: Enim harum consequatur eum aut sint.
       role: student
     properties:
       id:
-        example: 440e9b09-0ac3-43b9-bed7-254a15de2876
+        example: 6a6e01b4-72f5-46d0-9654-df7cfdbfdc8f
         format: uuid
         type: string
       name:
@@ -78,10 +78,10 @@ definitions:
     description: StudiouslyMemberCollection is the media type for an array of StudiouslyMember
       (default view)
     example:
-    - id: 440e9b09-0ac3-43b9-bed7-254a15de2876
+    - id: 6a6e01b4-72f5-46d0-9654-df7cfdbfdc8f
       name: Enim harum consequatur eum aut sint.
       role: student
-    - id: 440e9b09-0ac3-43b9-bed7-254a15de2876
+    - id: 6a6e01b4-72f5-46d0-9654-df7cfdbfdc8f
       name: Enim harum consequatur eum aut sint.
       role: student
     items:
@@ -93,31 +93,31 @@ definitions:
     description: StudiouslyQuestion media type (default view)
     example:
       answered: true
-      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
       data: 6.7668915e+18
-      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
       question_type: Et ullam.
-      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
       votes: 5.5062443e+18
     properties:
       answered:
         example: true
         type: boolean
       author_id:
-        example: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+        example: 69e125c3-cf7b-4757-8013-bd76fb1e483d
         format: uuid
         type: string
       data:
         example: 6.7668915e+18
       id:
-        example: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+        example: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
         format: uuid
         type: string
       question_type:
         example: Et ullam.
         type: string
       unit_id:
-        example: 0ad6e992-ac86-4d65-a4e9-de578352958e
+        example: d3d913d4-554e-4f2e-b553-adcedabad09d
         format: uuid
         type: string
       votes:
@@ -134,24 +134,24 @@ definitions:
     description: StudiouslyQuestion media type (feed view)
     example:
       answered: true
-      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
-      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
-      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
+      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
+      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
       votes: 5.5062443e+18
     properties:
       answered:
         example: true
         type: boolean
       author_id:
-        example: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+        example: 69e125c3-cf7b-4757-8013-bd76fb1e483d
         format: uuid
         type: string
       id:
-        example: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+        example: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
         format: uuid
         type: string
       unit_id:
-        example: 0ad6e992-ac86-4d65-a4e9-de578352958e
+        example: d3d913d4-554e-4f2e-b553-adcedabad09d
         format: uuid
         type: string
       votes:
@@ -168,25 +168,25 @@ definitions:
       StudiouslyQuestionFeed (default view)
     example:
     - answered: true
-      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
       data: 6.7668915e+18
-      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
       question_type: Et ullam.
-      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
       votes: 5.5062443e+18
     - answered: true
-      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
       data: 6.7668915e+18
-      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
       question_type: Et ullam.
-      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
       votes: 5.5062443e+18
     - answered: true
-      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
       data: 6.7668915e+18
-      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
       question_type: Et ullam.
-      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
       votes: 5.5062443e+18
     items:
       $ref: '#/definitions/StudiouslyQuestionFeed'

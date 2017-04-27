@@ -1,5 +1,7 @@
 -- +migrate Up
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE SCHEMA IF NOT EXISTS extensions;
+CREATE EXTENSION IF NOT EXISTS pgcrypto SCHEMA extensions;
+SET search_path TO "$user",public,extensions;
 
 CREATE TYPE classroom_role AS ENUM (
     'student',

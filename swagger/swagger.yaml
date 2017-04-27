@@ -7,17 +7,17 @@ definitions:
   StudiouslyClass:
     description: StudiouslyClass media type (default view)
     example:
-      current_unit: f440d507-04c1-49d8-af9c-9b6246ef8139
-      id: cdf50198-fe65-4a02-99b3-99c663b10f6a
+      current_unit: 021e5649-362c-4020-83d3-4882aeb32fa8
+      id: c574bbb6-c69b-48b1-a7d8-875bac87db90
       name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
     properties:
       current_unit:
         description: Current unit of study
-        example: f440d507-04c1-49d8-af9c-9b6246ef8139
+        example: 021e5649-362c-4020-83d3-4882aeb32fa8
         format: uuid
         type: string
       id:
-        example: cdf50198-fe65-4a02-99b3-99c663b10f6a
+        example: c574bbb6-c69b-48b1-a7d8-875bac87db90
         format: uuid
         type: string
       name:
@@ -32,14 +32,14 @@ definitions:
     description: StudiouslyClassCollection is the media type for an array of StudiouslyClass
       (default view)
     example:
-    - current_unit: f440d507-04c1-49d8-af9c-9b6246ef8139
-      id: cdf50198-fe65-4a02-99b3-99c663b10f6a
+    - current_unit: 021e5649-362c-4020-83d3-4882aeb32fa8
+      id: c574bbb6-c69b-48b1-a7d8-875bac87db90
       name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
-    - current_unit: f440d507-04c1-49d8-af9c-9b6246ef8139
-      id: cdf50198-fe65-4a02-99b3-99c663b10f6a
+    - current_unit: 021e5649-362c-4020-83d3-4882aeb32fa8
+      id: c574bbb6-c69b-48b1-a7d8-875bac87db90
       name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
-    - current_unit: f440d507-04c1-49d8-af9c-9b6246ef8139
-      id: cdf50198-fe65-4a02-99b3-99c663b10f6a
+    - current_unit: 021e5649-362c-4020-83d3-4882aeb32fa8
+      id: c574bbb6-c69b-48b1-a7d8-875bac87db90
       name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
     items:
       $ref: '#/definitions/StudiouslyClass'
@@ -49,12 +49,12 @@ definitions:
   StudiouslyMember:
     description: StudiouslyMember media type (default view)
     example:
-      id: 6a6e01b4-72f5-46d0-9654-df7cfdbfdc8f
+      id: 6b09f13e-ae4a-4a30-9bb0-96a5811064c6
       name: Enim harum consequatur eum aut sint.
       role: student
     properties:
       id:
-        example: 6a6e01b4-72f5-46d0-9654-df7cfdbfdc8f
+        example: 6b09f13e-ae4a-4a30-9bb0-96a5811064c6
         format: uuid
         type: string
       name:
@@ -78,10 +78,10 @@ definitions:
     description: StudiouslyMemberCollection is the media type for an array of StudiouslyMember
       (default view)
     example:
-    - id: 6a6e01b4-72f5-46d0-9654-df7cfdbfdc8f
+    - id: 6b09f13e-ae4a-4a30-9bb0-96a5811064c6
       name: Enim harum consequatur eum aut sint.
       role: student
-    - id: 6a6e01b4-72f5-46d0-9654-df7cfdbfdc8f
+    - id: 6b09f13e-ae4a-4a30-9bb0-96a5811064c6
       name: Enim harum consequatur eum aut sint.
       role: student
     items:
@@ -93,31 +93,31 @@ definitions:
     description: StudiouslyQuestion media type (default view)
     example:
       answered: true
-      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
+      author_id: 3c8729b9-ce1a-4290-885d-a149ae433442
       data: 6.7668915e+18
-      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
+      id: bfd6dda4-8aa5-4b62-ab0e-5c7a0cce43ed
       question_type: Et ullam.
-      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
+      unit_id: 99cf5f76-4aad-48e0-89f2-3625906ae91a
       votes: 5.5062443e+18
     properties:
       answered:
         example: true
         type: boolean
       author_id:
-        example: 69e125c3-cf7b-4757-8013-bd76fb1e483d
+        example: 3c8729b9-ce1a-4290-885d-a149ae433442
         format: uuid
         type: string
       data:
         example: 6.7668915e+18
       id:
-        example: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
+        example: bfd6dda4-8aa5-4b62-ab0e-5c7a0cce43ed
         format: uuid
         type: string
       question_type:
         example: Et ullam.
         type: string
       unit_id:
-        example: d3d913d4-554e-4f2e-b553-adcedabad09d
+        example: 99cf5f76-4aad-48e0-89f2-3625906ae91a
         format: uuid
         type: string
       votes:
@@ -134,24 +134,24 @@ definitions:
     description: StudiouslyQuestion media type (feed view)
     example:
       answered: true
-      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
-      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
-      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
+      author_id: 3c8729b9-ce1a-4290-885d-a149ae433442
+      id: bfd6dda4-8aa5-4b62-ab0e-5c7a0cce43ed
+      unit_id: 99cf5f76-4aad-48e0-89f2-3625906ae91a
       votes: 5.5062443e+18
     properties:
       answered:
         example: true
         type: boolean
       author_id:
-        example: 69e125c3-cf7b-4757-8013-bd76fb1e483d
+        example: 3c8729b9-ce1a-4290-885d-a149ae433442
         format: uuid
         type: string
       id:
-        example: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
+        example: bfd6dda4-8aa5-4b62-ab0e-5c7a0cce43ed
         format: uuid
         type: string
       unit_id:
-        example: d3d913d4-554e-4f2e-b553-adcedabad09d
+        example: 99cf5f76-4aad-48e0-89f2-3625906ae91a
         format: uuid
         type: string
       votes:
@@ -168,25 +168,25 @@ definitions:
       StudiouslyQuestionFeed (default view)
     example:
     - answered: true
-      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
+      author_id: 3c8729b9-ce1a-4290-885d-a149ae433442
       data: 6.7668915e+18
-      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
+      id: bfd6dda4-8aa5-4b62-ab0e-5c7a0cce43ed
       question_type: Et ullam.
-      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
+      unit_id: 99cf5f76-4aad-48e0-89f2-3625906ae91a
       votes: 5.5062443e+18
     - answered: true
-      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
+      author_id: 3c8729b9-ce1a-4290-885d-a149ae433442
       data: 6.7668915e+18
-      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
+      id: bfd6dda4-8aa5-4b62-ab0e-5c7a0cce43ed
       question_type: Et ullam.
-      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
+      unit_id: 99cf5f76-4aad-48e0-89f2-3625906ae91a
       votes: 5.5062443e+18
     - answered: true
-      author_id: 69e125c3-cf7b-4757-8013-bd76fb1e483d
+      author_id: 3c8729b9-ce1a-4290-885d-a149ae433442
       data: 6.7668915e+18
-      id: 62fbf6a3-37c1-45f4-9b39-a954e6c668cf
+      id: bfd6dda4-8aa5-4b62-ab0e-5c7a0cce43ed
       question_type: Et ullam.
-      unit_id: d3d913d4-554e-4f2e-b553-adcedabad09d
+      unit_id: 99cf5f76-4aad-48e0-89f2-3625906ae91a
       votes: 5.5062443e+18
     items:
       $ref: '#/definitions/StudiouslyQuestionFeed'
@@ -211,6 +211,8 @@ paths:
             $ref: '#/definitions/StudiouslyClassCollection'
         "404":
           description: Class does not exist or the user does not have access to it
+        "500":
+          description: Internal Server Error
       schemes:
       - http
       summary: list class
@@ -235,6 +237,8 @@ paths:
             $ref: '#/definitions/StudiouslyClass'
         "404":
           description: Class does not exist or the user does not have access to it
+        "500":
+          description: Internal Server Error
       schemes:
       - http
       summary: show class
@@ -259,6 +263,8 @@ paths:
             $ref: '#/definitions/StudiouslyMemberCollection'
         "404":
           description: Class does not exist or the user does not have access to it
+        "500":
+          description: Internal Server Error
       schemes:
       - http
       summary: show_members class
@@ -305,6 +311,8 @@ paths:
           description: A query parameter is invalid
         "404":
           description: Class does not exist or the user does not have access to it
+        "500":
+          description: Internal Server Error
       schemes:
       - http
       summary: show_questions class
@@ -329,6 +337,8 @@ paths:
             $ref: '#/definitions/StudiouslyQuestion'
         "404":
           description: Question not found
+        "500":
+          description: Internal Server Error
       schemes:
       - http
       summary: show question
@@ -339,6 +349,9 @@ produces:
 - application/xml
 - application/gob
 - application/x-gob
+responses:
+  InternalServerError:
+    description: Internal Server Error
 schemes:
 - http
 swagger: "2.0"

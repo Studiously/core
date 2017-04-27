@@ -20,6 +20,7 @@ var _ = Resource("question", func() {
 			Description("Question not found")
 			Status(404)
 		})
+		Response(InternalServerError)
 	})
 })
 

@@ -166,13 +166,6 @@ func (saq *ShortAnswerQuestion) Delete(db XODB) error {
 	return nil
 }
 
-// Profile returns the Profile associated with the ShortAnswerQuestion's AuthorID (author_id).
-//
-// Generated from foreign key 'short_answer_author_fkey'.
-func (saq *ShortAnswerQuestion) Profile(db XODB) (*Profile, error) {
-	return ProfileByID(db, saq.AuthorID)
-}
-
 // Class returns the Class associated with the ShortAnswerQuestion's ClassID (class_id).
 //
 // Generated from foreign key 'short_answer_class_fkey'.

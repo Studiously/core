@@ -52,6 +52,12 @@ func (ctx *ListClassContext) NotFound() error {
 	return nil
 }
 
+// InternalServerError sends a HTTP response with status code 500.
+func (ctx *ListClassContext) InternalServerError() error {
+	ctx.ResponseData.WriteHeader(500)
+	return nil
+}
+
 // ShowClassContext provides the class show action context.
 type ShowClassContext struct {
 	context.Context
@@ -90,6 +96,12 @@ func (ctx *ShowClassContext) OK(r *StudiouslyClass) error {
 // NotFound sends a HTTP response with status code 404.
 func (ctx *ShowClassContext) NotFound() error {
 	ctx.ResponseData.WriteHeader(404)
+	return nil
+}
+
+// InternalServerError sends a HTTP response with status code 500.
+func (ctx *ShowClassContext) InternalServerError() error {
+	ctx.ResponseData.WriteHeader(500)
 	return nil
 }
 
@@ -134,6 +146,12 @@ func (ctx *ShowMembersClassContext) OK(r StudiouslyMemberCollection) error {
 // NotFound sends a HTTP response with status code 404.
 func (ctx *ShowMembersClassContext) NotFound() error {
 	ctx.ResponseData.WriteHeader(404)
+	return nil
+}
+
+// InternalServerError sends a HTTP response with status code 500.
+func (ctx *ShowMembersClassContext) InternalServerError() error {
+	ctx.ResponseData.WriteHeader(500)
 	return nil
 }
 
@@ -226,6 +244,12 @@ func (ctx *ShowQuestionsClassContext) NotFound() error {
 	return nil
 }
 
+// InternalServerError sends a HTTP response with status code 500.
+func (ctx *ShowQuestionsClassContext) InternalServerError() error {
+	ctx.ResponseData.WriteHeader(500)
+	return nil
+}
+
 // ShowQuestionContext provides the question show action context.
 type ShowQuestionContext struct {
 	context.Context
@@ -288,5 +312,11 @@ func (ctx *ShowQuestionContext) OKFeed(r *StudiouslyQuestionFeed) error {
 // NotFound sends a HTTP response with status code 404.
 func (ctx *ShowQuestionContext) NotFound() error {
 	ctx.ResponseData.WriteHeader(404)
+	return nil
+}
+
+// InternalServerError sends a HTTP response with status code 500.
+func (ctx *ShowQuestionContext) InternalServerError() error {
+	ctx.ResponseData.WriteHeader(500)
 	return nil
 }

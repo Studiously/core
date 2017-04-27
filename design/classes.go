@@ -20,6 +20,7 @@ var _ = Resource("class", func() {
 			Status(404)
 			Description("Class does not exist or the user does not have access to it")
 		})
+		Response(InternalServerError)
 	})
 
 	Action("show", func() {
@@ -36,6 +37,7 @@ var _ = Resource("class", func() {
 			Status(404)
 			Description("Class does not exist or the user does not have access to it")
 		})
+		Response(InternalServerError)
 	})
 
 	Action("show_questions", func() {
@@ -62,6 +64,7 @@ var _ = Resource("class", func() {
 			Status(404)
 			Description("Class does not exist or the user does not have access to it")
 		})
+		Response(InternalServerError)
 		//Response("UnknownUnit", func() {
 		//	Description("Unit does not exist in the context of the class")
 		//	Status(400)
@@ -90,6 +93,7 @@ var _ = Resource("class", func() {
 			Status(404)
 			Description("Class does not exist or the user does not have access to it")
 		})
+		Response(InternalServerError)
 	})
 })
 

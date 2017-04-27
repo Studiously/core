@@ -25,6 +25,62 @@ import (
 	"net/url"
 )
 
+// ListClassInternalServerError runs the method List of the given controller with the given parameters.
+// It returns the response writer so it's possible to inspect the response headers.
+// If ctx is nil then context.Background() is used.
+// If service is nil then a default service is created.
+func ListClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController) http.ResponseWriter {
+	// Setup service
+	var (
+		logBuf bytes.Buffer
+		resp   interface{}
+
+		respSetter goatest.ResponseSetterFunc = func(r interface{}) { resp = r }
+	)
+	if service == nil {
+		service = goatest.Service(&logBuf, respSetter)
+	} else {
+		logger := log.New(&logBuf, "", log.Ltime)
+		service.WithLogger(goa.NewLogger(logger))
+		newEncoder := func(io.Writer) goa.Encoder { return respSetter }
+		service.Encoder = goa.NewHTTPEncoder() // Make sure the code ends up using this decoder
+		service.Encoder.Register(newEncoder, "*/*")
+	}
+
+	// Setup request context
+	rw := httptest.NewRecorder()
+	u := &url.URL{
+		Path: fmt.Sprintf("/classes"),
+	}
+	req, err := http.NewRequest("GET", u.String(), nil)
+	if err != nil {
+		panic("invalid test " + err.Error()) // bug
+	}
+	prms := url.Values{}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	goaCtx := goa.NewContext(goa.WithAction(ctx, "ClassTest"), rw, req, prms)
+	listCtx, _err := app.NewListClassContext(goaCtx, req, service)
+	if _err != nil {
+		panic("invalid test data " + _err.Error()) // bug
+	}
+
+	// Perform action
+	_err = ctrl.List(listCtx)
+
+	// Validate response
+	if _err != nil {
+		t.Fatalf("controller returned %+v, logs:\n%s", _err, logBuf.String())
+	}
+	if rw.Code != 500 {
+		t.Errorf("invalid response status code: got %+v, expected 500", rw.Code)
+	}
+
+	// Return results
+	return rw
+}
+
 // ListClassNotFound runs the method List of the given controller with the given parameters.
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
@@ -147,6 +203,63 @@ func ListClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service
 
 	// Return results
 	return rw, mt
+}
+
+// ShowClassInternalServerError runs the method Show of the given controller with the given parameters.
+// It returns the response writer so it's possible to inspect the response headers.
+// If ctx is nil then context.Background() is used.
+// If service is nil then a default service is created.
+func ShowClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID) http.ResponseWriter {
+	// Setup service
+	var (
+		logBuf bytes.Buffer
+		resp   interface{}
+
+		respSetter goatest.ResponseSetterFunc = func(r interface{}) { resp = r }
+	)
+	if service == nil {
+		service = goatest.Service(&logBuf, respSetter)
+	} else {
+		logger := log.New(&logBuf, "", log.Ltime)
+		service.WithLogger(goa.NewLogger(logger))
+		newEncoder := func(io.Writer) goa.Encoder { return respSetter }
+		service.Encoder = goa.NewHTTPEncoder() // Make sure the code ends up using this decoder
+		service.Encoder.Register(newEncoder, "*/*")
+	}
+
+	// Setup request context
+	rw := httptest.NewRecorder()
+	u := &url.URL{
+		Path: fmt.Sprintf("/classes/%v", classID),
+	}
+	req, err := http.NewRequest("GET", u.String(), nil)
+	if err != nil {
+		panic("invalid test " + err.Error()) // bug
+	}
+	prms := url.Values{}
+	prms["class_id"] = []string{fmt.Sprintf("%v", classID)}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	goaCtx := goa.NewContext(goa.WithAction(ctx, "ClassTest"), rw, req, prms)
+	showCtx, _err := app.NewShowClassContext(goaCtx, req, service)
+	if _err != nil {
+		panic("invalid test data " + _err.Error()) // bug
+	}
+
+	// Perform action
+	_err = ctrl.Show(showCtx)
+
+	// Validate response
+	if _err != nil {
+		t.Fatalf("controller returned %+v, logs:\n%s", _err, logBuf.String())
+	}
+	if rw.Code != 500 {
+		t.Errorf("invalid response status code: got %+v, expected 500", rw.Code)
+	}
+
+	// Return results
+	return rw
 }
 
 // ShowClassNotFound runs the method Show of the given controller with the given parameters.
@@ -273,6 +386,63 @@ func ShowClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service
 
 	// Return results
 	return rw, mt
+}
+
+// ShowMembersClassInternalServerError runs the method ShowMembers of the given controller with the given parameters.
+// It returns the response writer so it's possible to inspect the response headers.
+// If ctx is nil then context.Background() is used.
+// If service is nil then a default service is created.
+func ShowMembersClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID) http.ResponseWriter {
+	// Setup service
+	var (
+		logBuf bytes.Buffer
+		resp   interface{}
+
+		respSetter goatest.ResponseSetterFunc = func(r interface{}) { resp = r }
+	)
+	if service == nil {
+		service = goatest.Service(&logBuf, respSetter)
+	} else {
+		logger := log.New(&logBuf, "", log.Ltime)
+		service.WithLogger(goa.NewLogger(logger))
+		newEncoder := func(io.Writer) goa.Encoder { return respSetter }
+		service.Encoder = goa.NewHTTPEncoder() // Make sure the code ends up using this decoder
+		service.Encoder.Register(newEncoder, "*/*")
+	}
+
+	// Setup request context
+	rw := httptest.NewRecorder()
+	u := &url.URL{
+		Path: fmt.Sprintf("/classes/%v/members", classID),
+	}
+	req, err := http.NewRequest("GET", u.String(), nil)
+	if err != nil {
+		panic("invalid test " + err.Error()) // bug
+	}
+	prms := url.Values{}
+	prms["class_id"] = []string{fmt.Sprintf("%v", classID)}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	goaCtx := goa.NewContext(goa.WithAction(ctx, "ClassTest"), rw, req, prms)
+	showMembersCtx, _err := app.NewShowMembersClassContext(goaCtx, req, service)
+	if _err != nil {
+		panic("invalid test data " + _err.Error()) // bug
+	}
+
+	// Perform action
+	_err = ctrl.ShowMembers(showMembersCtx)
+
+	// Validate response
+	if _err != nil {
+		t.Fatalf("controller returned %+v, logs:\n%s", _err, logBuf.String())
+	}
+	if rw.Code != 500 {
+		t.Errorf("invalid response status code: got %+v, expected 500", rw.Code)
+	}
+
+	// Return results
+	return rw
 }
 
 // ShowMembersClassNotFound runs the method ShowMembers of the given controller with the given parameters.
@@ -486,6 +656,97 @@ func ShowQuestionsClassBadRequest(t goatest.TInterface, ctx context.Context, ser
 	}
 	if rw.Code != 400 {
 		t.Errorf("invalid response status code: got %+v, expected 400", rw.Code)
+	}
+
+	// Return results
+	return rw
+}
+
+// ShowQuestionsClassInternalServerError runs the method ShowQuestions of the given controller with the given parameters.
+// It returns the response writer so it's possible to inspect the response headers.
+// If ctx is nil then context.Background() is used.
+// If service is nil then a default service is created.
+func ShowQuestionsClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) http.ResponseWriter {
+	// Setup service
+	var (
+		logBuf bytes.Buffer
+		resp   interface{}
+
+		respSetter goatest.ResponseSetterFunc = func(r interface{}) { resp = r }
+	)
+	if service == nil {
+		service = goatest.Service(&logBuf, respSetter)
+	} else {
+		logger := log.New(&logBuf, "", log.Ltime)
+		service.WithLogger(goa.NewLogger(logger))
+		newEncoder := func(io.Writer) goa.Encoder { return respSetter }
+		service.Encoder = goa.NewHTTPEncoder() // Make sure the code ends up using this decoder
+		service.Encoder.Register(newEncoder, "*/*")
+	}
+
+	// Setup request context
+	rw := httptest.NewRecorder()
+	query := url.Values{}
+	if answered != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *answered)}
+		query["answered"] = sliceVal
+	}
+	if authorID != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		query["author_id"] = sliceVal
+	}
+	if questionType != nil {
+		sliceVal := []string{*questionType}
+		query["question_type"] = sliceVal
+	}
+	if unitID != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		query["unit_id"] = sliceVal
+	}
+	u := &url.URL{
+		Path:     fmt.Sprintf("/classes/%v/questions", classID),
+		RawQuery: query.Encode(),
+	}
+	req, err := http.NewRequest("GET", u.String(), nil)
+	if err != nil {
+		panic("invalid test " + err.Error()) // bug
+	}
+	prms := url.Values{}
+	prms["class_id"] = []string{fmt.Sprintf("%v", classID)}
+	if answered != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *answered)}
+		prms["answered"] = sliceVal
+	}
+	if authorID != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		prms["author_id"] = sliceVal
+	}
+	if questionType != nil {
+		sliceVal := []string{*questionType}
+		prms["question_type"] = sliceVal
+	}
+	if unitID != nil {
+		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		prms["unit_id"] = sliceVal
+	}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	goaCtx := goa.NewContext(goa.WithAction(ctx, "ClassTest"), rw, req, prms)
+	showQuestionsCtx, _err := app.NewShowQuestionsClassContext(goaCtx, req, service)
+	if _err != nil {
+		panic("invalid test data " + _err.Error()) // bug
+	}
+
+	// Perform action
+	_err = ctrl.ShowQuestions(showQuestionsCtx)
+
+	// Validate response
+	if _err != nil {
+		t.Fatalf("controller returned %+v, logs:\n%s", _err, logBuf.String())
+	}
+	if rw.Code != 500 {
+		t.Errorf("invalid response status code: got %+v, expected 500", rw.Code)
 	}
 
 	// Return results

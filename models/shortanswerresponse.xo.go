@@ -161,6 +161,13 @@ func (sar *ShortAnswerResponse) Delete(db XODB) error {
 	return nil
 }
 
+// Profile returns the Profile associated with the ShortAnswerResponse's AuthorID (author_id).
+//
+// Generated from foreign key 'short_answer_author_fkey'.
+func (sar *ShortAnswerResponse) Profile(db XODB) (*Profile, error) {
+	return ProfileByID(db, sar.AuthorID)
+}
+
 // ShortAnswerQuestion returns the ShortAnswerQuestion associated with the ShortAnswerResponse's QuestionID (question_id).
 //
 // Generated from foreign key 'short_answer_question_fkey'.

@@ -12,12 +12,13 @@ var _ = Resource("class", func() {
 	Action("list", func() {
 		Description("Get all classes a user is in")
 		Routing(GET("/"))
-		Response(OK, CollectionOf("application/studiously.class+json", func() {
-			View("default")
-		}))
+		Response(OK, func() {
+			Status(200)
+			Media(CollectionOf("application/studiously.class+json"))
+		})
 		Response(NotFound, func() {
-			Description("Class does not exist or the user does not have access to it")
 			Status(404)
+			Description("Class does not exist or the user does not have access to it")
 		})
 	})
 
@@ -27,12 +28,13 @@ var _ = Resource("class", func() {
 		Params(func() {
 			Param("class_id", UUID, "Class ID")
 		})
-		Response(OK, ClassMedia, func() {
+		Response(OK, func() {
 			Status(200)
+			Media(ClassMedia)
 		})
 		Response(NotFound, func() {
-			Description("Class does not exist or the user does not have access to it")
 			Status(404)
+			Description("Class does not exist or the user does not have access to it")
 		})
 	})
 
@@ -48,16 +50,17 @@ var _ = Resource("class", func() {
 			Param("unit_id", UUID, "Filter by unit")
 			Param("answered", Boolean, "Filter by whether the question has been answered by the member")
 		})
-		Response(OK, CollectionOf("application/studiously.question+json", func() {
-			View("feed")
-		}))
-		Response(NotFound, func() {
-			Description("Class does not exist or the user does not have access to it")
-			Status(404)
+		Response(OK, func() {
+			Status(200)
+			Media(CollectionOf("application/studiously.question+json"), "feed")
 		})
 		Response(BadRequest, func() {
-			Description("A query parameter is invalid")
 			Status(400)
+			Description("A query parameter is invalid")
+		})
+		Response(NotFound, func() {
+			Status(404)
+			Description("Class does not exist or the user does not have access to it")
 		})
 		//Response("UnknownUnit", func() {
 		//	Description("Unit does not exist in the context of the class")
@@ -79,12 +82,13 @@ var _ = Resource("class", func() {
 		Params(func() {
 			Param("class_id", UUID, "Class ID")
 		})
-		Response(OK, CollectionOf("application/studiously.member+json", func() {
-			View("default")
-		}))
+		Response(OK, func() {
+			Status(200)
+			Media(CollectionOf("application/studiously.member+json"))
+		})
 		Response(NotFound, func() {
-			Description("Class does not exist or the user does not have access to it")
 			Status(404)
+			Description("Class does not exist or the user does not have access to it")
 		})
 	})
 })

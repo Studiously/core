@@ -1,0 +1,344 @@
+consumes:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+definitions:
+  StudiouslyClass:
+    description: StudiouslyClass media type (default view)
+    example:
+      current_unit: c607a5dd-6569-4cd8-8a14-a135ab920dec
+      id: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+      name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
+    properties:
+      current_unit:
+        description: Current unit of study
+        example: c607a5dd-6569-4cd8-8a14-a135ab920dec
+        format: uuid
+        type: string
+      id:
+        example: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+        format: uuid
+        type: string
+      name:
+        example: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
+        type: string
+    required:
+    - id
+    - name
+    title: 'Mediatype identifier: application/studiously.class+json; view=default'
+    type: object
+  StudiouslyClassCollection:
+    description: StudiouslyClassCollection is the media type for an array of StudiouslyClass
+      (default view)
+    example:
+    - current_unit: c607a5dd-6569-4cd8-8a14-a135ab920dec
+      id: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+      name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
+    - current_unit: c607a5dd-6569-4cd8-8a14-a135ab920dec
+      id: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+      name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
+    - current_unit: c607a5dd-6569-4cd8-8a14-a135ab920dec
+      id: 84af2d14-2baa-4144-89a0-2ba1a3510e43
+      name: Dolor sint blanditiis ipsum perferendis fugiat sapiente.
+    items:
+      $ref: '#/definitions/StudiouslyClass'
+    title: 'Mediatype identifier: application/studiously.class+json; type=collection;
+      view=default'
+    type: array
+  StudiouslyMember:
+    description: StudiouslyMember media type (default view)
+    example:
+      id: 440e9b09-0ac3-43b9-bed7-254a15de2876
+      name: Enim harum consequatur eum aut sint.
+      role: student
+    properties:
+      id:
+        example: 440e9b09-0ac3-43b9-bed7-254a15de2876
+        format: uuid
+        type: string
+      name:
+        example: Enim harum consequatur eum aut sint.
+        type: string
+      role:
+        enum:
+        - student
+        - moderator
+        - teacher
+        - administrator
+        example: student
+        type: string
+    required:
+    - id
+    - name
+    - role
+    title: 'Mediatype identifier: application/studiously.member+json; view=default'
+    type: object
+  StudiouslyMemberCollection:
+    description: StudiouslyMemberCollection is the media type for an array of StudiouslyMember
+      (default view)
+    example:
+    - id: 440e9b09-0ac3-43b9-bed7-254a15de2876
+      name: Enim harum consequatur eum aut sint.
+      role: student
+    - id: 440e9b09-0ac3-43b9-bed7-254a15de2876
+      name: Enim harum consequatur eum aut sint.
+      role: student
+    items:
+      $ref: '#/definitions/StudiouslyMember'
+    title: 'Mediatype identifier: application/studiously.member+json; type=collection;
+      view=default'
+    type: array
+  StudiouslyQuestion:
+    description: StudiouslyQuestion media type (default view)
+    example:
+      answered: true
+      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      data: 6.7668915e+18
+      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      question_type: Et ullam.
+      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      votes: 5.5062443e+18
+    properties:
+      answered:
+        example: true
+        type: boolean
+      author_id:
+        example: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+        format: uuid
+        type: string
+      data:
+        example: 6.7668915e+18
+      id:
+        example: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+        format: uuid
+        type: string
+      question_type:
+        example: Et ullam.
+        type: string
+      unit_id:
+        example: 0ad6e992-ac86-4d65-a4e9-de578352958e
+        format: uuid
+        type: string
+      votes:
+        example: 5.5062443e+18
+        format: int64
+        type: integer
+    required:
+    - id
+    - question_type
+    - unit_id
+    title: 'Mediatype identifier: application/studiously.question+json; view=default'
+    type: object
+  StudiouslyQuestionFeed:
+    description: StudiouslyQuestion media type (feed view)
+    example:
+      answered: true
+      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      votes: 5.5062443e+18
+    properties:
+      answered:
+        example: true
+        type: boolean
+      author_id:
+        example: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+        format: uuid
+        type: string
+      id:
+        example: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+        format: uuid
+        type: string
+      unit_id:
+        example: 0ad6e992-ac86-4d65-a4e9-de578352958e
+        format: uuid
+        type: string
+      votes:
+        example: 5.5062443e+18
+        format: int64
+        type: integer
+    required:
+    - id
+    - unit_id
+    title: 'Mediatype identifier: application/studiously.question+json; view=feed'
+    type: object
+  StudiouslyQuestionFeedCollection:
+    description: StudiouslyQuestionFeedCollection is the media type for an array of
+      StudiouslyQuestionFeed (default view)
+    example:
+    - answered: true
+      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      data: 6.7668915e+18
+      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      question_type: Et ullam.
+      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      votes: 5.5062443e+18
+    - answered: true
+      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      data: 6.7668915e+18
+      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      question_type: Et ullam.
+      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      votes: 5.5062443e+18
+    - answered: true
+      author_id: ea8c4ce2-9d0e-43a6-97a0-f9b80abfa31f
+      data: 6.7668915e+18
+      id: cac69e21-5f44-4b09-ab7f-c88fc02e273c
+      question_type: Et ullam.
+      unit_id: 0ad6e992-ac86-4d65-a4e9-de578352958e
+      votes: 5.5062443e+18
+    items:
+      $ref: '#/definitions/StudiouslyQuestionFeed'
+    title: 'Mediatype identifier: application/studiously.question+json; type=collection;
+      view=feed'
+    type: array
+host: localhost:8080
+info:
+  title: Studiously API
+  version: ""
+paths:
+  /classes:
+    get:
+      description: Get all classes a user is in
+      operationId: class#list
+      produces:
+      - application/studiously.class+json; type=collection
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/StudiouslyClassCollection'
+        "404":
+          description: Class does not exist or the user does not have access to it
+      schemes:
+      - http
+      summary: list class
+      tags:
+      - class
+  /classes/{class_id}:
+    get:
+      description: Get class by ID
+      operationId: class#show
+      parameters:
+      - description: Class ID
+        in: path
+        name: class_id
+        required: true
+        type: string
+      produces:
+      - application/studiously.class+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/StudiouslyClass'
+        "404":
+          description: Class does not exist or the user does not have access to it
+      schemes:
+      - http
+      summary: show class
+      tags:
+      - class
+  /classes/{class_id}/members:
+    get:
+      description: Get members of a class
+      operationId: class#show_members
+      parameters:
+      - description: Class ID
+        in: path
+        name: class_id
+        required: true
+        type: string
+      produces:
+      - application/studiously.member+json; type=collection
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/StudiouslyMemberCollection'
+        "404":
+          description: Class does not exist or the user does not have access to it
+      schemes:
+      - http
+      summary: show_members class
+      tags:
+      - class
+  /classes/{class_id}/questions:
+    get:
+      description: Get questions for a class
+      operationId: class#show_questions
+      parameters:
+      - description: Filter by whether the question has been answered by the member
+        in: query
+        name: answered
+        required: false
+        type: boolean
+      - description: Filter by author
+        in: query
+        name: author_id
+        required: false
+        type: string
+      - description: Class ID
+        in: path
+        name: class_id
+        required: true
+        type: string
+      - description: Filter by question type
+        in: query
+        name: question_type
+        required: false
+        type: string
+      - description: Filter by unit
+        in: query
+        name: unit_id
+        required: false
+        type: string
+      produces:
+      - application/studiously.question+json; type=collection
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/StudiouslyQuestionFeedCollection'
+        "400":
+          description: A query parameter is invalid
+        "404":
+          description: Class does not exist or the user does not have access to it
+      schemes:
+      - http
+      summary: show_questions class
+      tags:
+      - class
+  /questions/{questionID}:
+    get:
+      description: Get a question by ID
+      operationId: question#show
+      parameters:
+      - description: Question ID
+        in: path
+        name: questionID
+        required: true
+        type: string
+      produces:
+      - application/studiously.question+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/StudiouslyQuestion'
+        "404":
+          description: Question not found
+      schemes:
+      - http
+      summary: show question
+      tags:
+      - question
+produces:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+schemes:
+- http
+swagger: "2.0"

@@ -27,7 +27,7 @@ var _ = Resource("class", func() {
 		Description("Get class by ID")
 		Routing(GET("/:class_id"))
 		Params(func() {
-			Param("class_id", UUID, "Class ID")
+			Param("class_id", Integer, "Class ID")
 		})
 		Response(OK, func() {
 			Status(200)
@@ -45,11 +45,11 @@ var _ = Resource("class", func() {
 		Routing(GET("/:class_id/questions"))
 		Params(func() {
 			// Questions are scoped by class, so clients cannot retrieve all questions for all classes a user is in automatically. This is because studying multiple subjects at the same time
-			Param("class_id", UUID, "Class ID")
+			Param("class_id", Integer, "Class ID")
 
 			Param("question_type", String, "Filter by question type")
-			Param("author_id", UUID, "Filter by author")
-			Param("unit_id", UUID, "Filter by unit")
+			Param("author_id", Integer, "Filter by author")
+			Param("unit_id", Integer, "Filter by unit")
 			Param("answered", Boolean, "Filter by whether the question has been answered by the member")
 		})
 		Response(OK, func() {
@@ -83,7 +83,7 @@ var _ = Resource("class", func() {
 		Description("Get members of a class")
 		Routing(GET("/:class_id/members"))
 		Params(func() {
-			Param("class_id", UUID, "Class ID")
+			Param("class_id", Integer, "Class ID")
 		})
 		Response(OK, func() {
 			Status(200)
@@ -99,9 +99,9 @@ var _ = Resource("class", func() {
 
 var ClassMedia = MediaType("application/studiously.class+json", func() {
 	Attributes(func() {
-		Attribute("id", UUID)
+		Attribute("id", Integer)
 		Attribute("name", String)
-		Attribute("current_unit", UUID, "Current unit of study")
+		Attribute("current_unit", Integer, "Current unit of study")
 
 		Required("id", "name")
 	})
@@ -114,7 +114,7 @@ var ClassMedia = MediaType("application/studiously.class+json", func() {
 
 var MemberMedia = MediaType("application/studiously.member+json", func() {
 	Attributes(func() {
-		Attribute("id", UUID)
+		Attribute("id", Integer)
 		Attribute("name", String)
 		Attribute("role", String, func() {
 			Enum("student", "moderator", "teacher", "administrator")

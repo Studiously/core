@@ -13,7 +13,6 @@ package client
 import (
 	"context"
 	"fmt"
-	uuid "github.com/goadesign/goa/uuid"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -49,8 +48,8 @@ func (c *Client) NewListClassRequest(ctx context.Context, path string) (*http.Re
 }
 
 // ShowClassPath computes a request path to the show action of class.
-func ShowClassPath(classID uuid.UUID) string {
-	param0 := classID.String()
+func ShowClassPath(classID int) string {
+	param0 := strconv.Itoa(classID)
 
 	return fmt.Sprintf("/classes/%s", param0)
 }
@@ -79,8 +78,8 @@ func (c *Client) NewShowClassRequest(ctx context.Context, path string) (*http.Re
 }
 
 // ShowMembersClassPath computes a request path to the show_members action of class.
-func ShowMembersClassPath(classID uuid.UUID) string {
-	param0 := classID.String()
+func ShowMembersClassPath(classID int) string {
+	param0 := strconv.Itoa(classID)
 
 	return fmt.Sprintf("/classes/%s/members", param0)
 }
@@ -109,14 +108,14 @@ func (c *Client) NewShowMembersClassRequest(ctx context.Context, path string) (*
 }
 
 // ShowQuestionsClassPath computes a request path to the show_questions action of class.
-func ShowQuestionsClassPath(classID uuid.UUID) string {
-	param0 := classID.String()
+func ShowQuestionsClassPath(classID int) string {
+	param0 := strconv.Itoa(classID)
 
 	return fmt.Sprintf("/classes/%s/questions", param0)
 }
 
 // Get questions for a class
-func (c *Client) ShowQuestionsClass(ctx context.Context, path string, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) (*http.Response, error) {
+func (c *Client) ShowQuestionsClass(ctx context.Context, path string, answered *bool, authorID *int, questionType *string, unitID *int) (*http.Response, error) {
 	req, err := c.NewShowQuestionsClassRequest(ctx, path, answered, authorID, questionType, unitID)
 	if err != nil {
 		return nil, err
@@ -125,7 +124,7 @@ func (c *Client) ShowQuestionsClass(ctx context.Context, path string, answered *
 }
 
 // NewShowQuestionsClassRequest create the request corresponding to the show_questions action endpoint of the class resource.
-func (c *Client) NewShowQuestionsClassRequest(ctx context.Context, path string, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) (*http.Request, error) {
+func (c *Client) NewShowQuestionsClassRequest(ctx context.Context, path string, answered *bool, authorID *int, questionType *string, unitID *int) (*http.Request, error) {
 	scheme := c.Scheme
 	if scheme == "" {
 		scheme = "http"
@@ -133,19 +132,19 @@ func (c *Client) NewShowQuestionsClassRequest(ctx context.Context, path string, 
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
 	values := u.Query()
 	if answered != nil {
-		tmp9 := strconv.FormatBool(*answered)
-		values.Set("answered", tmp9)
+		tmp7 := strconv.FormatBool(*answered)
+		values.Set("answered", tmp7)
 	}
 	if authorID != nil {
-		tmp10 := authorID.String()
-		values.Set("author_id", tmp10)
+		tmp8 := strconv.Itoa(*authorID)
+		values.Set("author_id", tmp8)
 	}
 	if questionType != nil {
 		values.Set("question_type", *questionType)
 	}
 	if unitID != nil {
-		tmp11 := unitID.String()
-		values.Set("unit_id", tmp11)
+		tmp9 := strconv.Itoa(*unitID)
+		values.Set("unit_id", tmp9)
 	}
 	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)

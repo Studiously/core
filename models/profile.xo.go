@@ -5,15 +5,13 @@ package models
 
 import (
 	"errors"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 // Profile represents a row from 'public.profiles'.
 type Profile struct {
-	ID      uuid.UUID     `json:"id"`       // id
-	UserID  uuid.UUID     `json:"user_id"`  // user_id
-	ClassID uuid.UUID     `json:"class_id"` // class_id
+	ID      int64         `json:"id"`       // id
+	UserID  int64         `json:"user_id"`  // user_id
+	ClassID int64         `json:"class_id"` // class_id
 	Role    ClassroomRole `json:"role"`     // role
 
 	// xo fields
@@ -177,7 +175,7 @@ func (p *Profile) User(db XODB) (*User, error) {
 // ProfileByID retrieves a row from 'public.profiles' as a Profile.
 //
 // Generated from index 'profiles_pkey'.
-func ProfileByID(db XODB, id uuid.UUID) (*Profile, error) {
+func ProfileByID(db XODB, id int64) (*Profile, error) {
 	var err error
 
 	// sql query

@@ -35,36 +35,36 @@ type (
 	// ShowClassCommand is the command line data structure for the show action of class
 	ShowClassCommand struct {
 		// Class ID
-		ClassID     string
+		ClassID     int
 		PrettyPrint bool
 	}
 
 	// ShowMembersClassCommand is the command line data structure for the show_members action of class
 	ShowMembersClassCommand struct {
 		// Class ID
-		ClassID     string
+		ClassID     int
 		PrettyPrint bool
 	}
 
 	// ShowQuestionsClassCommand is the command line data structure for the show_questions action of class
 	ShowQuestionsClassCommand struct {
 		// Class ID
-		ClassID string
+		ClassID int
 		// Filter by whether the question has been answered by the member
 		Answered string
 		// Filter by author
-		AuthorID string
+		AuthorID int
 		// Filter by question type
 		QuestionType string
 		// Filter by unit
-		UnitID      string
+		UnitID      int
 		PrettyPrint bool
 	}
 
 	// ShowQuestionCommand is the command line data structure for the show action of question
 	ShowQuestionCommand struct {
 		// Question ID
-		QuestionID  string
+		QuestionID  int
 		PrettyPrint bool
 	}
 )
@@ -338,8 +338,8 @@ func (cmd *ShowClassCommand) Run(c *client.Client, args []string) error {
 
 // RegisterFlags registers the command flags with the command line.
 func (cmd *ShowClassCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
-	var classID string
-	cc.Flags().StringVar(&cmd.ClassID, "class_id", classID, `Class ID`)
+	var classID int
+	cc.Flags().IntVar(&cmd.ClassID, "class_id", classID, `Class ID`)
 }
 
 // Run makes the HTTP request corresponding to the ShowMembersClassCommand command.
@@ -364,8 +364,8 @@ func (cmd *ShowMembersClassCommand) Run(c *client.Client, args []string) error {
 
 // RegisterFlags registers the command flags with the command line.
 func (cmd *ShowMembersClassCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
-	var classID string
-	cc.Flags().StringVar(&cmd.ClassID, "class_id", classID, `Class ID`)
+	var classID int
+	cc.Flags().IntVar(&cmd.ClassID, "class_id", classID, `Class ID`)
 }
 
 // Run makes the HTTP request corresponding to the ShowQuestionsClassCommand command.
@@ -387,25 +387,7 @@ func (cmd *ShowQuestionsClassCommand) Run(c *client.Client, args []string) error
 			return err
 		}
 	}
-	var tmp7 *uuid.UUID
-	if cmd.AuthorID != "" {
-		var err error
-		tmp7, err = uuidVal(cmd.AuthorID)
-		if err != nil {
-			goa.LogError(ctx, "failed to parse flag into *uuid.UUID value", "flag", "--author_id", "err", err)
-			return err
-		}
-	}
-	var tmp8 *uuid.UUID
-	if cmd.UnitID != "" {
-		var err error
-		tmp8, err = uuidVal(cmd.UnitID)
-		if err != nil {
-			goa.LogError(ctx, "failed to parse flag into *uuid.UUID value", "flag", "--unit_id", "err", err)
-			return err
-		}
-	}
-	resp, err := c.ShowQuestionsClass(ctx, path, tmp6, tmp7, stringFlagVal("question_type", cmd.QuestionType), tmp8)
+	resp, err := c.ShowQuestionsClass(ctx, path, tmp6, intFlagVal("author_id", cmd.AuthorID), stringFlagVal("question_type", cmd.QuestionType), intFlagVal("unit_id", cmd.UnitID))
 	if err != nil {
 		goa.LogError(ctx, "failed", "err", err)
 		return err
@@ -417,16 +399,16 @@ func (cmd *ShowQuestionsClassCommand) Run(c *client.Client, args []string) error
 
 // RegisterFlags registers the command flags with the command line.
 func (cmd *ShowQuestionsClassCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
-	var classID string
-	cc.Flags().StringVar(&cmd.ClassID, "class_id", classID, `Class ID`)
+	var classID int
+	cc.Flags().IntVar(&cmd.ClassID, "class_id", classID, `Class ID`)
 	var answered string
 	cc.Flags().StringVar(&cmd.Answered, "answered", answered, `Filter by whether the question has been answered by the member`)
-	var authorID string
-	cc.Flags().StringVar(&cmd.AuthorID, "author_id", authorID, `Filter by author`)
+	var authorID int
+	cc.Flags().IntVar(&cmd.AuthorID, "author_id", authorID, `Filter by author`)
 	var questionType string
 	cc.Flags().StringVar(&cmd.QuestionType, "question_type", questionType, `Filter by question type`)
-	var unitID string
-	cc.Flags().StringVar(&cmd.UnitID, "unit_id", unitID, `Filter by unit`)
+	var unitID int
+	cc.Flags().IntVar(&cmd.UnitID, "unit_id", unitID, `Filter by unit`)
 }
 
 // Run makes the HTTP request corresponding to the ShowQuestionCommand command.
@@ -451,6 +433,6 @@ func (cmd *ShowQuestionCommand) Run(c *client.Client, args []string) error {
 
 // RegisterFlags registers the command flags with the command line.
 func (cmd *ShowQuestionCommand) RegisterFlags(cc *cobra.Command, c *client.Client) {
-	var questionID string
-	cc.Flags().StringVar(&cmd.QuestionID, "questionID", questionID, `Question ID`)
+	var questionID int
+	cc.Flags().IntVar(&cmd.QuestionID, "questionID", questionID, `Question ID`)
 }

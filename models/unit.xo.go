@@ -6,14 +6,12 @@ package models
 import (
 	"database/sql"
 	"errors"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 // Unit represents a row from 'public.units'.
 type Unit struct {
-	ID      uuid.UUID      `json:"id"`       // id
-	ClassID uuid.UUID      `json:"class_id"` // class_id
+	ID      int64          `json:"id"`       // id
+	ClassID int64          `json:"class_id"` // class_id
 	Name    sql.NullString `json:"name"`     // name
 	Weight  int            `json:"weight"`   // weight
 
@@ -171,7 +169,7 @@ func (u *Unit) Class(db XODB) (*Class, error) {
 // UnitByID retrieves a row from 'public.units' as a Unit.
 //
 // Generated from index 'units_pkey'.
-func UnitByID(db XODB, id uuid.UUID) (*Unit, error) {
+func UnitByID(db XODB, id int64) (*Unit, error) {
 	var err error
 
 	// sql query

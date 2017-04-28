@@ -16,7 +16,6 @@ import (
 	"fmt"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/goatest"
-	uuid "github.com/satori/go.uuid"
 	"github.com/studiously/core/app"
 	"io"
 	"log"
@@ -29,7 +28,7 @@ import (
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID uuid.UUID) http.ResponseWriter {
+func ShowQuestionInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -86,7 +85,7 @@ func ShowQuestionInternalServerError(t goatest.TInterface, ctx context.Context, 
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID uuid.UUID) http.ResponseWriter {
+func ShowQuestionNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -143,7 +142,7 @@ func ShowQuestionNotFound(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionOKByAuthor(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID uuid.UUID) (http.ResponseWriter, *app.StudiouslyQuestionByAuthor) {
+func ShowQuestionOKByAuthor(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID int) (http.ResponseWriter, *app.StudiouslyQuestionByAuthor) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -212,7 +211,7 @@ func ShowQuestionOKByAuthor(t goatest.TInterface, ctx context.Context, service *
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionOKByType(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID uuid.UUID) (http.ResponseWriter, *app.StudiouslyQuestionByType) {
+func ShowQuestionOKByType(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID int) (http.ResponseWriter, *app.StudiouslyQuestionByType) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -281,7 +280,7 @@ func ShowQuestionOKByType(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionOKByUnit(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID uuid.UUID) (http.ResponseWriter, *app.StudiouslyQuestionByUnit) {
+func ShowQuestionOKByUnit(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID int) (http.ResponseWriter, *app.StudiouslyQuestionByUnit) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -350,7 +349,7 @@ func ShowQuestionOKByUnit(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID uuid.UUID) (http.ResponseWriter, *app.StudiouslyQuestion) {
+func ShowQuestionOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID int) (http.ResponseWriter, *app.StudiouslyQuestion) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -419,7 +418,7 @@ func ShowQuestionOK(t goatest.TInterface, ctx context.Context, service *goa.Serv
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionOKFeed(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID uuid.UUID) (http.ResponseWriter, *app.StudiouslyQuestionFeed) {
+func ShowQuestionOKFeed(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.QuestionController, questionID int) (http.ResponseWriter, *app.StudiouslyQuestionFeed) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer

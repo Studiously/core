@@ -13,7 +13,7 @@ var _ = Resource("question", func() {
 		Description("Get a question by ID")
 		Routing(GET("/:questionID"))
 		Params(func() {
-			Param("questionID", UUID, "Question ID")
+			Param("questionID", Integer, "Question ID")
 		})
 		Response(OK, QuestionMedia)
 		Response(NotFound, func() {
@@ -27,10 +27,10 @@ var _ = Resource("question", func() {
 var QuestionMedia = MediaType("application/studiously.question+json", func() {
 	// Does not return the class ID because strict isolation is maintained, thus it's irrelevant
 	Attributes(func() {
-		Attribute("id", UUID)
+		Attribute("id", Integer)
 		Attribute("question_type", String)
-		Attribute("author_id", UUID)
-		Attribute("unit_id", UUID)
+		Attribute("author_id", Integer)
+		Attribute("unit_id", Integer)
 		Attribute("votes", Integer)
 		Attribute("answered", Boolean)
 		Attribute("data", Any)

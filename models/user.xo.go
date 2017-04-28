@@ -5,15 +5,13 @@ package models
 
 import (
 	"errors"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 // User represents a row from 'public.users'.
 type User struct {
-	ID    uuid.UUID `json:"id"`    // id
-	Name  string    `json:"name"`  // name
-	Email string    `json:"email"` // email
+	ID    int64  `json:"id"`    // id
+	Name  string `json:"name"`  // name
+	Email string `json:"email"` // email
 
 	// xo fields
 	_exists, _deleted bool
@@ -162,7 +160,7 @@ func (u *User) Delete(db XODB) error {
 // UserByID retrieves a row from 'public.users' as a User.
 //
 // Generated from index 'users_pkey'.
-func UserByID(db XODB, id uuid.UUID) (*User, error) {
+func UserByID(db XODB, id int64) (*User, error) {
 	var err error
 
 	// sql query

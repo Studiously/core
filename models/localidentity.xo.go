@@ -5,14 +5,12 @@ package models
 
 import (
 	"errors"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 // LocalIdentity represents a row from 'public.local_identities'.
 type LocalIdentity struct {
-	UserID   uuid.UUID `json:"user_id"`  // user_id
-	Password string    `json:"password"` // password
+	UserID   int64  `json:"user_id"`  // user_id
+	Password string `json:"password"` // password
 
 	// xo fields
 	_exists, _deleted bool
@@ -161,7 +159,7 @@ func (li *LocalIdentity) Delete(db XODB) error {
 // LocalIdentityByUserID retrieves a row from 'public.local_identities' as a LocalIdentity.
 //
 // Generated from index 'local_identities_pkey'.
-func LocalIdentityByUserID(db XODB, userID uuid.UUID) (*LocalIdentity, error) {
+func LocalIdentityByUserID(db XODB, userID int64) (*LocalIdentity, error) {
 	var err error
 
 	// sql query

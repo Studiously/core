@@ -1,11 +1,9 @@
 package main
 
 import (
-	"database/sql"
-
-	"github.com/Sirupsen/logrus"
 	"github.com/goadesign/goa"
 	"github.com/studiously/core/app"
+	"database/sql"
 	"github.com/studiously/core/models"
 )
 
@@ -35,21 +33,23 @@ func (c *ClassController) Show(ctx *app.ShowClassContext) error {
 	// ClassController_Show: start_implement
 
 	// Put your logic here
-	logrus.Info(ctx.ClassID)
 
-	class, err := models.ClassByID(ctx.Value(DatabaseKey).(*sql.DB), ctx.ClassID)
-	if err == sql.ErrNoRows {
-		logrus.Info("Not found.")
-		return ctx.NotFound()
-	}
+	class, err := models.ClassByID(ctx.Value(DatabaseKey).(*sql.DB), int64(ctx.ClassID))
 	if err != nil {
-		ctx.InternalServerError()
+		if err == sql.ErrNoRows {
+			return ctx.NotFound()
+		}
+		return ctx.InternalServerError()
 	}
+
 	// ClassController_Show: end_implement
 	res := &app.StudiouslyClass{
-		ID:          class.ID,
-		CurrentUnit: &class.CurrentUnit,
-		Name:        class.Name,
+		ID: int(class.ID),
+		Name: class.Name,
+	}
+	if class.CurrentUnit.Valid {
+		cu := int(class.CurrentUnit.Int64)
+		res.CurrentUnit = &cu
 	}
 	return ctx.OK(res)
 }

@@ -13,14 +13,14 @@ package client
 import (
 	"context"
 	"fmt"
-	uuid "github.com/goadesign/goa/uuid"
 	"net/http"
 	"net/url"
+	"strconv"
 )
 
 // ShowQuestionPath computes a request path to the show action of question.
-func ShowQuestionPath(questionID uuid.UUID) string {
-	param0 := questionID.String()
+func ShowQuestionPath(questionID int) string {
+	param0 := strconv.Itoa(questionID)
 
 	return fmt.Sprintf("/questions/%s", param0)
 }

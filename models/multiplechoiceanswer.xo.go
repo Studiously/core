@@ -5,16 +5,14 @@ package models
 
 import (
 	"errors"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 // MultipleChoiceAnswer represents a row from 'public.multiple_choice_answers'.
 type MultipleChoiceAnswer struct {
-	ID         uuid.UUID `json:"id"`          // id
-	QuestionID uuid.UUID `json:"question_id"` // question_id
-	Answer     string    `json:"answer"`      // answer
-	Correct    bool      `json:"correct"`     // correct
+	ID         int64  `json:"id"`          // id
+	QuestionID int64  `json:"question_id"` // question_id
+	Answer     string `json:"answer"`      // answer
+	Correct    bool   `json:"correct"`     // correct
 
 	// xo fields
 	_exists, _deleted bool
@@ -170,7 +168,7 @@ func (mca *MultipleChoiceAnswer) MultipleChoiceQuestion(db XODB) (*MultipleChoic
 // MultipleChoiceAnswerByID retrieves a row from 'public.multiple_choice_answers' as a MultipleChoiceAnswer.
 //
 // Generated from index 'multiple_choice_answers_pkey'.
-func MultipleChoiceAnswerByID(db XODB, id uuid.UUID) (*MultipleChoiceAnswer, error) {
+func MultipleChoiceAnswerByID(db XODB, id int64) (*MultipleChoiceAnswer, error) {
 	var err error
 
 	// sql query

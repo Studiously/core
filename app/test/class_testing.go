@@ -16,13 +16,13 @@ import (
 	"fmt"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/goatest"
-	uuid "github.com/satori/go.uuid"
 	"github.com/studiously/core/app"
 	"io"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strconv"
 )
 
 // ListClassInternalServerError runs the method List of the given controller with the given parameters.
@@ -209,7 +209,7 @@ func ListClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID) http.ResponseWriter {
+func ShowClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -266,7 +266,7 @@ func ShowClassInternalServerError(t goatest.TInterface, ctx context.Context, ser
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowClassNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID) http.ResponseWriter {
+func ShowClassNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -323,7 +323,7 @@ func ShowClassNotFound(t goatest.TInterface, ctx context.Context, service *goa.S
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID) (http.ResponseWriter, *app.StudiouslyClass) {
+func ShowClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int) (http.ResponseWriter, *app.StudiouslyClass) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -392,7 +392,7 @@ func ShowClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowMembersClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID) http.ResponseWriter {
+func ShowMembersClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -449,7 +449,7 @@ func ShowMembersClassInternalServerError(t goatest.TInterface, ctx context.Conte
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowMembersClassNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID) http.ResponseWriter {
+func ShowMembersClassNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -506,7 +506,7 @@ func ShowMembersClassNotFound(t goatest.TInterface, ctx context.Context, service
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowMembersClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID) (http.ResponseWriter, app.StudiouslyMemberCollection) {
+func ShowMembersClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int) (http.ResponseWriter, app.StudiouslyMemberCollection) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -575,7 +575,7 @@ func ShowMembersClassOK(t goatest.TInterface, ctx context.Context, service *goa.
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionsClassBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) http.ResponseWriter {
+func ShowQuestionsClassBadRequest(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int, answered *bool, authorID *int, questionType *string, unitID *int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -601,7 +601,7 @@ func ShowQuestionsClassBadRequest(t goatest.TInterface, ctx context.Context, ser
 		query["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		query["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -609,7 +609,7 @@ func ShowQuestionsClassBadRequest(t goatest.TInterface, ctx context.Context, ser
 		query["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		query["unit_id"] = sliceVal
 	}
 	u := &url.URL{
@@ -627,7 +627,7 @@ func ShowQuestionsClassBadRequest(t goatest.TInterface, ctx context.Context, ser
 		prms["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		prms["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -635,7 +635,7 @@ func ShowQuestionsClassBadRequest(t goatest.TInterface, ctx context.Context, ser
 		prms["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		prms["unit_id"] = sliceVal
 	}
 	if ctx == nil {
@@ -666,7 +666,7 @@ func ShowQuestionsClassBadRequest(t goatest.TInterface, ctx context.Context, ser
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionsClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) http.ResponseWriter {
+func ShowQuestionsClassInternalServerError(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int, answered *bool, authorID *int, questionType *string, unitID *int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -692,7 +692,7 @@ func ShowQuestionsClassInternalServerError(t goatest.TInterface, ctx context.Con
 		query["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		query["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -700,7 +700,7 @@ func ShowQuestionsClassInternalServerError(t goatest.TInterface, ctx context.Con
 		query["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		query["unit_id"] = sliceVal
 	}
 	u := &url.URL{
@@ -718,7 +718,7 @@ func ShowQuestionsClassInternalServerError(t goatest.TInterface, ctx context.Con
 		prms["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		prms["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -726,7 +726,7 @@ func ShowQuestionsClassInternalServerError(t goatest.TInterface, ctx context.Con
 		prms["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		prms["unit_id"] = sliceVal
 	}
 	if ctx == nil {
@@ -757,7 +757,7 @@ func ShowQuestionsClassInternalServerError(t goatest.TInterface, ctx context.Con
 // It returns the response writer so it's possible to inspect the response headers.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionsClassNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) http.ResponseWriter {
+func ShowQuestionsClassNotFound(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int, answered *bool, authorID *int, questionType *string, unitID *int) http.ResponseWriter {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -783,7 +783,7 @@ func ShowQuestionsClassNotFound(t goatest.TInterface, ctx context.Context, servi
 		query["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		query["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -791,7 +791,7 @@ func ShowQuestionsClassNotFound(t goatest.TInterface, ctx context.Context, servi
 		query["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		query["unit_id"] = sliceVal
 	}
 	u := &url.URL{
@@ -809,7 +809,7 @@ func ShowQuestionsClassNotFound(t goatest.TInterface, ctx context.Context, servi
 		prms["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		prms["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -817,7 +817,7 @@ func ShowQuestionsClassNotFound(t goatest.TInterface, ctx context.Context, servi
 		prms["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		prms["unit_id"] = sliceVal
 	}
 	if ctx == nil {
@@ -848,7 +848,7 @@ func ShowQuestionsClassNotFound(t goatest.TInterface, ctx context.Context, servi
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionsClassOKByAuthor(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) (http.ResponseWriter, app.StudiouslyQuestionByAuthorCollection) {
+func ShowQuestionsClassOKByAuthor(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int, answered *bool, authorID *int, questionType *string, unitID *int) (http.ResponseWriter, app.StudiouslyQuestionByAuthorCollection) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -874,7 +874,7 @@ func ShowQuestionsClassOKByAuthor(t goatest.TInterface, ctx context.Context, ser
 		query["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		query["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -882,7 +882,7 @@ func ShowQuestionsClassOKByAuthor(t goatest.TInterface, ctx context.Context, ser
 		query["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		query["unit_id"] = sliceVal
 	}
 	u := &url.URL{
@@ -900,7 +900,7 @@ func ShowQuestionsClassOKByAuthor(t goatest.TInterface, ctx context.Context, ser
 		prms["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		prms["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -908,7 +908,7 @@ func ShowQuestionsClassOKByAuthor(t goatest.TInterface, ctx context.Context, ser
 		prms["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		prms["unit_id"] = sliceVal
 	}
 	if ctx == nil {
@@ -951,7 +951,7 @@ func ShowQuestionsClassOKByAuthor(t goatest.TInterface, ctx context.Context, ser
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionsClassOKByType(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) (http.ResponseWriter, app.StudiouslyQuestionByTypeCollection) {
+func ShowQuestionsClassOKByType(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int, answered *bool, authorID *int, questionType *string, unitID *int) (http.ResponseWriter, app.StudiouslyQuestionByTypeCollection) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -977,7 +977,7 @@ func ShowQuestionsClassOKByType(t goatest.TInterface, ctx context.Context, servi
 		query["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		query["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -985,7 +985,7 @@ func ShowQuestionsClassOKByType(t goatest.TInterface, ctx context.Context, servi
 		query["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		query["unit_id"] = sliceVal
 	}
 	u := &url.URL{
@@ -1003,7 +1003,7 @@ func ShowQuestionsClassOKByType(t goatest.TInterface, ctx context.Context, servi
 		prms["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		prms["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -1011,7 +1011,7 @@ func ShowQuestionsClassOKByType(t goatest.TInterface, ctx context.Context, servi
 		prms["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		prms["unit_id"] = sliceVal
 	}
 	if ctx == nil {
@@ -1054,7 +1054,7 @@ func ShowQuestionsClassOKByType(t goatest.TInterface, ctx context.Context, servi
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionsClassOKByUnit(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) (http.ResponseWriter, app.StudiouslyQuestionByUnitCollection) {
+func ShowQuestionsClassOKByUnit(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int, answered *bool, authorID *int, questionType *string, unitID *int) (http.ResponseWriter, app.StudiouslyQuestionByUnitCollection) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1080,7 +1080,7 @@ func ShowQuestionsClassOKByUnit(t goatest.TInterface, ctx context.Context, servi
 		query["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		query["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -1088,7 +1088,7 @@ func ShowQuestionsClassOKByUnit(t goatest.TInterface, ctx context.Context, servi
 		query["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		query["unit_id"] = sliceVal
 	}
 	u := &url.URL{
@@ -1106,7 +1106,7 @@ func ShowQuestionsClassOKByUnit(t goatest.TInterface, ctx context.Context, servi
 		prms["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		prms["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -1114,7 +1114,7 @@ func ShowQuestionsClassOKByUnit(t goatest.TInterface, ctx context.Context, servi
 		prms["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		prms["unit_id"] = sliceVal
 	}
 	if ctx == nil {
@@ -1157,7 +1157,7 @@ func ShowQuestionsClassOKByUnit(t goatest.TInterface, ctx context.Context, servi
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionsClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) (http.ResponseWriter, app.StudiouslyQuestionCollection) {
+func ShowQuestionsClassOK(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int, answered *bool, authorID *int, questionType *string, unitID *int) (http.ResponseWriter, app.StudiouslyQuestionCollection) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1183,7 +1183,7 @@ func ShowQuestionsClassOK(t goatest.TInterface, ctx context.Context, service *go
 		query["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		query["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -1191,7 +1191,7 @@ func ShowQuestionsClassOK(t goatest.TInterface, ctx context.Context, service *go
 		query["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		query["unit_id"] = sliceVal
 	}
 	u := &url.URL{
@@ -1209,7 +1209,7 @@ func ShowQuestionsClassOK(t goatest.TInterface, ctx context.Context, service *go
 		prms["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		prms["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -1217,7 +1217,7 @@ func ShowQuestionsClassOK(t goatest.TInterface, ctx context.Context, service *go
 		prms["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		prms["unit_id"] = sliceVal
 	}
 	if ctx == nil {
@@ -1260,7 +1260,7 @@ func ShowQuestionsClassOK(t goatest.TInterface, ctx context.Context, service *go
 // It returns the response writer so it's possible to inspect the response headers and the media type struct written to the response.
 // If ctx is nil then context.Background() is used.
 // If service is nil then a default service is created.
-func ShowQuestionsClassOKFeed(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID uuid.UUID, answered *bool, authorID *uuid.UUID, questionType *string, unitID *uuid.UUID) (http.ResponseWriter, app.StudiouslyQuestionFeedCollection) {
+func ShowQuestionsClassOKFeed(t goatest.TInterface, ctx context.Context, service *goa.Service, ctrl app.ClassController, classID int, answered *bool, authorID *int, questionType *string, unitID *int) (http.ResponseWriter, app.StudiouslyQuestionFeedCollection) {
 	// Setup service
 	var (
 		logBuf bytes.Buffer
@@ -1286,7 +1286,7 @@ func ShowQuestionsClassOKFeed(t goatest.TInterface, ctx context.Context, service
 		query["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		query["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -1294,7 +1294,7 @@ func ShowQuestionsClassOKFeed(t goatest.TInterface, ctx context.Context, service
 		query["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		query["unit_id"] = sliceVal
 	}
 	u := &url.URL{
@@ -1312,7 +1312,7 @@ func ShowQuestionsClassOKFeed(t goatest.TInterface, ctx context.Context, service
 		prms["answered"] = sliceVal
 	}
 	if authorID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *authorID)}
+		sliceVal := []string{strconv.Itoa(*authorID)}
 		prms["author_id"] = sliceVal
 	}
 	if questionType != nil {
@@ -1320,7 +1320,7 @@ func ShowQuestionsClassOKFeed(t goatest.TInterface, ctx context.Context, service
 		prms["question_type"] = sliceVal
 	}
 	if unitID != nil {
-		sliceVal := []string{fmt.Sprintf("%v", *unitID)}
+		sliceVal := []string{strconv.Itoa(*unitID)}
 		prms["unit_id"] = sliceVal
 	}
 	if ctx == nil {

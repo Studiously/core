@@ -7,19 +7,17 @@ import (
 	"database/sql"
 	"errors"
 	"time"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 // ShortAnswerQuestion represents a row from 'public.short_answer_questions'.
 type ShortAnswerQuestion struct {
-	ID            uuid.UUID     `json:"id"`             // id
-	ClassID       uuid.UUID     `json:"class_id"`       // class_id
-	AuthorID      uuid.UUID     `json:"author_id"`      // author_id
+	ID            int64         `json:"id"`             // id
+	ClassID       int64         `json:"class_id"`       // class_id
+	AuthorID      sql.NullInt64 `json:"author_id"`      // author_id
 	Prompt        string        `json:"prompt"`         // prompt
 	MinimumLength sql.NullInt64 `json:"minimum_length"` // minimum_length
 	MaximumLength sql.NullInt64 `json:"maximum_length"` // maximum_length
-	UnitID        uuid.UUID     `json:"unit_id"`        // unit_id
+	UnitID        int64         `json:"unit_id"`        // unit_id
 	Timestamp     time.Time     `json:"timestamp"`      // timestamp
 
 	// xo fields
@@ -183,7 +181,7 @@ func (saq *ShortAnswerQuestion) Unit(db XODB) (*Unit, error) {
 // ShortAnswerQuestionByID retrieves a row from 'public.short_answer_questions' as a ShortAnswerQuestion.
 //
 // Generated from index 'short_answer_questions_pkey'.
-func ShortAnswerQuestionByID(db XODB, id uuid.UUID) (*ShortAnswerQuestion, error) {
+func ShortAnswerQuestionByID(db XODB, id int64) (*ShortAnswerQuestion, error) {
 	var err error
 
 	// sql query

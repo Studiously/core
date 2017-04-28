@@ -12,7 +12,6 @@ package client
 
 import (
 	"github.com/goadesign/goa"
-	uuid "github.com/goadesign/goa/uuid"
 	"net/http"
 )
 
@@ -21,9 +20,9 @@ import (
 // Identifier: application/studiously.class+json; view=default
 type StudiouslyClass struct {
 	// Current unit of study
-	CurrentUnit *uuid.UUID `form:"current_unit,omitempty" json:"current_unit,omitempty" xml:"current_unit,omitempty"`
-	ID          uuid.UUID  `form:"id" json:"id" xml:"id"`
-	Name        string     `form:"name" json:"name" xml:"name"`
+	CurrentUnit *int   `form:"current_unit,omitempty" json:"current_unit,omitempty" xml:"current_unit,omitempty"`
+	ID          int    `form:"id" json:"id" xml:"id"`
+	Name        string `form:"name" json:"name" xml:"name"`
 }
 
 // Validate validates the StudiouslyClass media type instance.
@@ -70,9 +69,9 @@ func (c *Client) DecodeStudiouslyClassCollection(resp *http.Response) (Studiousl
 //
 // Identifier: application/studiously.member+json; view=default
 type StudiouslyMember struct {
-	ID   uuid.UUID `form:"id" json:"id" xml:"id"`
-	Name string    `form:"name" json:"name" xml:"name"`
-	Role string    `form:"role" json:"role" xml:"role"`
+	ID   int    `form:"id" json:"id" xml:"id"`
+	Name string `form:"name" json:"name" xml:"name"`
+	Role string `form:"role" json:"role" xml:"role"`
 }
 
 // Validate validates the StudiouslyMember media type instance.
@@ -127,9 +126,9 @@ func (c *Client) DecodeStudiouslyMemberCollection(resp *http.Response) (Studious
 type StudiouslyQuestionByAuthor struct {
 	Answered     *bool        `form:"answered,omitempty" json:"answered,omitempty" xml:"answered,omitempty"`
 	Data         *interface{} `form:"data,omitempty" json:"data,omitempty" xml:"data,omitempty"`
-	ID           uuid.UUID    `form:"id" json:"id" xml:"id"`
+	ID           int          `form:"id" json:"id" xml:"id"`
 	QuestionType string       `form:"question_type" json:"question_type" xml:"question_type"`
-	UnitID       uuid.UUID    `form:"unit_id" json:"unit_id" xml:"unit_id"`
+	UnitID       int          `form:"unit_id" json:"unit_id" xml:"unit_id"`
 	Votes        *int         `form:"votes,omitempty" json:"votes,omitempty" xml:"votes,omitempty"`
 }
 
@@ -148,10 +147,10 @@ func (mt *StudiouslyQuestionByAuthor) Validate() (err error) {
 // Identifier: application/studiously.question+json; view=by_type
 type StudiouslyQuestionByType struct {
 	Answered *bool        `form:"answered,omitempty" json:"answered,omitempty" xml:"answered,omitempty"`
-	AuthorID *uuid.UUID   `form:"author_id,omitempty" json:"author_id,omitempty" xml:"author_id,omitempty"`
+	AuthorID *int         `form:"author_id,omitempty" json:"author_id,omitempty" xml:"author_id,omitempty"`
 	Data     *interface{} `form:"data,omitempty" json:"data,omitempty" xml:"data,omitempty"`
-	ID       uuid.UUID    `form:"id" json:"id" xml:"id"`
-	UnitID   uuid.UUID    `form:"unit_id" json:"unit_id" xml:"unit_id"`
+	ID       int          `form:"id" json:"id" xml:"id"`
+	UnitID   int          `form:"unit_id" json:"unit_id" xml:"unit_id"`
 	Votes    *int         `form:"votes,omitempty" json:"votes,omitempty" xml:"votes,omitempty"`
 }
 
@@ -166,9 +165,9 @@ func (mt *StudiouslyQuestionByType) Validate() (err error) {
 // Identifier: application/studiously.question+json; view=by_unit
 type StudiouslyQuestionByUnit struct {
 	Answered     *bool        `form:"answered,omitempty" json:"answered,omitempty" xml:"answered,omitempty"`
-	AuthorID     *uuid.UUID   `form:"author_id,omitempty" json:"author_id,omitempty" xml:"author_id,omitempty"`
+	AuthorID     *int         `form:"author_id,omitempty" json:"author_id,omitempty" xml:"author_id,omitempty"`
 	Data         *interface{} `form:"data,omitempty" json:"data,omitempty" xml:"data,omitempty"`
-	ID           uuid.UUID    `form:"id" json:"id" xml:"id"`
+	ID           int          `form:"id" json:"id" xml:"id"`
 	QuestionType string       `form:"question_type" json:"question_type" xml:"question_type"`
 	Votes        *int         `form:"votes,omitempty" json:"votes,omitempty" xml:"votes,omitempty"`
 }
@@ -187,11 +186,11 @@ func (mt *StudiouslyQuestionByUnit) Validate() (err error) {
 // Identifier: application/studiously.question+json; view=default
 type StudiouslyQuestion struct {
 	Answered     *bool        `form:"answered,omitempty" json:"answered,omitempty" xml:"answered,omitempty"`
-	AuthorID     *uuid.UUID   `form:"author_id,omitempty" json:"author_id,omitempty" xml:"author_id,omitempty"`
+	AuthorID     *int         `form:"author_id,omitempty" json:"author_id,omitempty" xml:"author_id,omitempty"`
 	Data         *interface{} `form:"data,omitempty" json:"data,omitempty" xml:"data,omitempty"`
-	ID           uuid.UUID    `form:"id" json:"id" xml:"id"`
+	ID           int          `form:"id" json:"id" xml:"id"`
 	QuestionType string       `form:"question_type" json:"question_type" xml:"question_type"`
-	UnitID       uuid.UUID    `form:"unit_id" json:"unit_id" xml:"unit_id"`
+	UnitID       int          `form:"unit_id" json:"unit_id" xml:"unit_id"`
 	Votes        *int         `form:"votes,omitempty" json:"votes,omitempty" xml:"votes,omitempty"`
 }
 
@@ -209,11 +208,11 @@ func (mt *StudiouslyQuestion) Validate() (err error) {
 //
 // Identifier: application/studiously.question+json; view=feed
 type StudiouslyQuestionFeed struct {
-	Answered *bool      `form:"answered,omitempty" json:"answered,omitempty" xml:"answered,omitempty"`
-	AuthorID *uuid.UUID `form:"author_id,omitempty" json:"author_id,omitempty" xml:"author_id,omitempty"`
-	ID       uuid.UUID  `form:"id" json:"id" xml:"id"`
-	UnitID   uuid.UUID  `form:"unit_id" json:"unit_id" xml:"unit_id"`
-	Votes    *int       `form:"votes,omitempty" json:"votes,omitempty" xml:"votes,omitempty"`
+	Answered *bool `form:"answered,omitempty" json:"answered,omitempty" xml:"answered,omitempty"`
+	AuthorID *int  `form:"author_id,omitempty" json:"author_id,omitempty" xml:"author_id,omitempty"`
+	ID       int   `form:"id" json:"id" xml:"id"`
+	UnitID   int   `form:"unit_id" json:"unit_id" xml:"unit_id"`
+	Votes    *int  `form:"votes,omitempty" json:"votes,omitempty" xml:"votes,omitempty"`
 }
 
 // Validate validates the StudiouslyQuestionFeed media type instance.

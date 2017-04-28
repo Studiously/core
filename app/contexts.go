@@ -13,7 +13,6 @@ package app
 import (
 	"context"
 	"github.com/goadesign/goa"
-	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"strconv"
 )
@@ -63,7 +62,7 @@ type ShowClassContext struct {
 	context.Context
 	*goa.ResponseData
 	*goa.RequestData
-	ClassID uuid.UUID
+	ClassID int
 }
 
 // NewShowClassContext parses the incoming request URL and body, performs validations and creates the
@@ -78,10 +77,10 @@ func NewShowClassContext(ctx context.Context, r *http.Request, service *goa.Serv
 	paramClassID := req.Params["class_id"]
 	if len(paramClassID) > 0 {
 		rawClassID := paramClassID[0]
-		if classID, err2 := uuid.FromString(rawClassID); err2 == nil {
+		if classID, err2 := strconv.Atoi(rawClassID); err2 == nil {
 			rctx.ClassID = classID
 		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("class_id", rawClassID, "uuid"))
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("class_id", rawClassID, "integer"))
 		}
 	}
 	return &rctx, err
@@ -110,7 +109,7 @@ type ShowMembersClassContext struct {
 	context.Context
 	*goa.ResponseData
 	*goa.RequestData
-	ClassID uuid.UUID
+	ClassID int
 }
 
 // NewShowMembersClassContext parses the incoming request URL and body, performs validations and creates the
@@ -125,10 +124,10 @@ func NewShowMembersClassContext(ctx context.Context, r *http.Request, service *g
 	paramClassID := req.Params["class_id"]
 	if len(paramClassID) > 0 {
 		rawClassID := paramClassID[0]
-		if classID, err2 := uuid.FromString(rawClassID); err2 == nil {
+		if classID, err2 := strconv.Atoi(rawClassID); err2 == nil {
 			rctx.ClassID = classID
 		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("class_id", rawClassID, "uuid"))
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("class_id", rawClassID, "integer"))
 		}
 	}
 	return &rctx, err
@@ -161,10 +160,10 @@ type ShowQuestionsClassContext struct {
 	*goa.ResponseData
 	*goa.RequestData
 	Answered     *bool
-	AuthorID     *uuid.UUID
-	ClassID      uuid.UUID
+	AuthorID     *int
+	ClassID      int
 	QuestionType *string
-	UnitID       *uuid.UUID
+	UnitID       *int
 }
 
 // NewShowQuestionsClassContext parses the incoming request URL and body, performs validations and creates the
@@ -189,20 +188,21 @@ func NewShowQuestionsClassContext(ctx context.Context, r *http.Request, service 
 	paramAuthorID := req.Params["author_id"]
 	if len(paramAuthorID) > 0 {
 		rawAuthorID := paramAuthorID[0]
-		if authorID, err2 := uuid.FromString(rawAuthorID); err2 == nil {
-			tmp4 := &authorID
+		if authorID, err2 := strconv.Atoi(rawAuthorID); err2 == nil {
+			tmp5 := authorID
+			tmp4 := &tmp5
 			rctx.AuthorID = tmp4
 		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("author_id", rawAuthorID, "uuid"))
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("author_id", rawAuthorID, "integer"))
 		}
 	}
 	paramClassID := req.Params["class_id"]
 	if len(paramClassID) > 0 {
 		rawClassID := paramClassID[0]
-		if classID, err2 := uuid.FromString(rawClassID); err2 == nil {
+		if classID, err2 := strconv.Atoi(rawClassID); err2 == nil {
 			rctx.ClassID = classID
 		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("class_id", rawClassID, "uuid"))
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("class_id", rawClassID, "integer"))
 		}
 	}
 	paramQuestionType := req.Params["question_type"]
@@ -213,11 +213,12 @@ func NewShowQuestionsClassContext(ctx context.Context, r *http.Request, service 
 	paramUnitID := req.Params["unit_id"]
 	if len(paramUnitID) > 0 {
 		rawUnitID := paramUnitID[0]
-		if unitID, err2 := uuid.FromString(rawUnitID); err2 == nil {
-			tmp6 := &unitID
-			rctx.UnitID = tmp6
+		if unitID, err2 := strconv.Atoi(rawUnitID); err2 == nil {
+			tmp8 := unitID
+			tmp7 := &tmp8
+			rctx.UnitID = tmp7
 		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("unit_id", rawUnitID, "uuid"))
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("unit_id", rawUnitID, "integer"))
 		}
 	}
 	return &rctx, err
@@ -255,7 +256,7 @@ type ShowQuestionContext struct {
 	context.Context
 	*goa.ResponseData
 	*goa.RequestData
-	QuestionID uuid.UUID
+	QuestionID int
 }
 
 // NewShowQuestionContext parses the incoming request URL and body, performs validations and creates the
@@ -270,10 +271,10 @@ func NewShowQuestionContext(ctx context.Context, r *http.Request, service *goa.S
 	paramQuestionID := req.Params["questionID"]
 	if len(paramQuestionID) > 0 {
 		rawQuestionID := paramQuestionID[0]
-		if questionID, err2 := uuid.FromString(rawQuestionID); err2 == nil {
+		if questionID, err2 := strconv.Atoi(rawQuestionID); err2 == nil {
 			rctx.QuestionID = questionID
 		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("questionID", rawQuestionID, "uuid"))
+			err = goa.MergeErrors(err, goa.InvalidParamTypeError("questionID", rawQuestionID, "integer"))
 		}
 	}
 	return &rctx, err

@@ -6,15 +6,13 @@ package models
 import (
 	"database/sql"
 	"errors"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 // ShortAnswerResponse represents a row from 'public.short_answer_responses'.
 type ShortAnswerResponse struct {
-	ID         uuid.UUID      `json:"id"`          // id
-	QuestionID uuid.UUID      `json:"question_id"` // question_id
-	AuthorID   uuid.UUID      `json:"author_id"`   // author_id
+	ID         int64          `json:"id"`          // id
+	QuestionID sql.NullInt64  `json:"question_id"` // question_id
+	AuthorID   int64          `json:"author_id"`   // author_id
 	Response   sql.NullString `json:"response"`    // response
 
 	// xo fields
@@ -172,13 +170,13 @@ func (sar *ShortAnswerResponse) Profile(db XODB) (*Profile, error) {
 //
 // Generated from foreign key 'short_answer_question_fkey'.
 func (sar *ShortAnswerResponse) ShortAnswerQuestion(db XODB) (*ShortAnswerQuestion, error) {
-	return ShortAnswerQuestionByID(db, sar.QuestionID)
+	return ShortAnswerQuestionByID(db, sar.QuestionID.Int64)
 }
 
 // ShortAnswerResponseByID retrieves a row from 'public.short_answer_responses' as a ShortAnswerResponse.
 //
 // Generated from index 'short_answer_responses_pkey'.
-func ShortAnswerResponseByID(db XODB, id uuid.UUID) (*ShortAnswerResponse, error) {
+func ShortAnswerResponseByID(db XODB, id int64) (*ShortAnswerResponse, error) {
 	var err error
 
 	// sql query
